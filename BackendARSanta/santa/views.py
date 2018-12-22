@@ -30,9 +30,20 @@ def get_treasure(request, pk):
     return to_json([treasure])
 
 
+@apimethod
+def get_treasures_on_model(request, model_image_name):
+    treasure = Treasures.objects.filter(model_image_name=model_image_name)
+    return to_json(treasure)
+
+
 @csrf_exempt
 @apimethod
-def add_treasure(request, author, msg):
-    treasure = Treasures(author=author, message=msg, creation_date=datetime.now())
+def add_treasure(request, author, msg, model_image_name):
+    treasure = Treasures(
+        author=author,
+        message=msg,
+        creation_date=datetime.now(),
+        model_image_name=model_image_name)
+
     treasure.save()
     return to_json([treasure])
