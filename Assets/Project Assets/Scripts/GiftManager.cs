@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 [Serializable]
 public class Treasure
@@ -26,8 +27,10 @@ public class GiftManager : MonoBehaviour
     private static string baseUrl = "http://172.31.199.77:8000/santa/";
 
     public GameObject giftPrefab1;
-    public TextMeshPro text;
     public float updateRate = 2;
+    public GameObject convas;
+    public GameObject convasSucceed;
+    public InputField text;
 
     public Transform pos1;
     public Transform[] listOfPoints;
@@ -86,5 +89,27 @@ public class GiftManager : MonoBehaviour
 
         yield return new WaitForSeconds(2);
         StartCoroutine("LoadTreasureForModel", gameObject.name);
+    }
+
+    public void OpenAddGift ()
+    {
+        convas.SetActive(true);
+        convasSucceed.SetActive(false); // temporary
+    }
+
+    public void CancelAddGift ()
+    {
+        text.text = "";
+
+        convas.SetActive(false);
+    }
+
+    public void AddGift ()
+    {
+        // add gift on server
+
+        convasSucceed.SetActive(true);
+        convasSucceed.gameObject.GetComponent<Animator>().SetTrigger("fade");
+        convas.SetActive(false);
     }
 }
