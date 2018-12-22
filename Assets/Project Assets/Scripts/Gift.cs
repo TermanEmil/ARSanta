@@ -32,9 +32,8 @@ public class Gift : MonoBehaviour
         if (isReady)
         {
             GetComponent<Animator>().SetTrigger("open");
-            StartCoroutine(FinishPreview());
-        }
             StartCoroutine("RemoveGift");
+            StartCoroutine(FinishPreview());
         }
     }
 
