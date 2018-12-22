@@ -31,12 +31,10 @@ public class GiftManager : MonoBehaviour
     public Transform pos1;
     public Transform[] listOfPoints;
 
-    public void CreateGift () {
-        //GameObject newGift = Instantiate (giftPrefab1, transform);
-        //newGift.transform.position = pos1.position;
-        // newGift.SetParent (transform);
-
-        StartCoroutine("LoadTreasureForModel", "P_1");
+    private void Awake()
+    {
+        StopCoroutine("LoadTreasureForModel");
+        StartCoroutine("LoadTreasureForModel", gameObject.name);
     }
 
     IEnumerator LoadTreasureForModel(string modelName)
