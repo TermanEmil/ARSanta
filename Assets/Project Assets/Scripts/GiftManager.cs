@@ -25,13 +25,16 @@ public class GiftManager : MonoBehaviour
     private static string baseUrl = "http://172.31.199.77:8000/santa/";
 
     public GameObject giftPrefab1;
+    public TextMeshPro text;
 
     public Transform pos1;
+    public Transform[] listOfPoints;
 
     public void CreateGift () {
         GameObject newGift = Instantiate (giftPrefab1, transform);
         newGift.transform.position = pos1.position;
         // newGift.SetParent (transform);
+
         StartCoroutine("LoadTreasureForModel", "P_1");
     }
 
@@ -52,7 +55,12 @@ public class GiftManager : MonoBehaviour
                 var treasuresResponse = JsonUtility.FromJson<TreasuresResponse>(www.downloadHandler.text);
                 var treasures = treasuresResponse.treasures;
 
-                // Do stuff here with treasures.
+                //print (treasures.Count);
+                var i = 0;
+                foreach (var treasure in treasures) {
+                    // if (listOfPoints.Length)
+                    i++;
+                }
             }
         }
     }
