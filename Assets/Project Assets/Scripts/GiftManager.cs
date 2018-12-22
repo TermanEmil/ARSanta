@@ -53,7 +53,10 @@ public class GiftManager : MonoBehaviour
             gift.transform.localPosition = Vector3.zero;
             gift.transform.localRotation = Quaternion.identity;
 
-            gifts.Add(gift.GetComponent<Gift>());
+            var giftComponent = gift.GetComponent<Gift>();
+            giftComponent.giftManager = this;
+
+            gifts.Add(giftComponent);
             gift.SetActive(false);
         }
 
@@ -157,5 +160,26 @@ public class GiftManager : MonoBehaviour
         convasSucceed.SetActive(true);
         convasSucceed.gameObject.GetComponent<Animator>().SetTrigger("fade");
         convas.SetActive(false);
+    }
+
+    public void RemoveGift(Gift targetGift)
+    {
+        gifts.Remove(targetGift);
+        
+        foreach (var pos in listOfPoints)
+        {
+            if (pos.childCount == 0)
+            {
+                var gift = Instantiate(giftPrefab1, pos) as GameObject;
+                gift.transform.localPosition = Vector3.zero;
+                gift.transform.localRotation = Quaternion.identity;
+
+                var giftComponent = gift.GetComponent<Gift>();
+                giftComponent.giftManager = this;
+
+                gifts.Add(giftComponent);
+                gift.SetActive(false);
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 public class Gift : MonoBehaviour
 {
     public TextMeshPro text;
+    public GiftManager giftManager;
 
     private bool isReady = false;
     private Transform lastParent;
@@ -50,6 +51,7 @@ public class Gift : MonoBehaviour
 
         transform.position = prevPos.position;
         transform.SetParent(prevPos);
+        giftManager.RemoveGift(this);
         transform.localRotation = Quaternion.identity;
 
         isReady = true;
@@ -63,14 +65,14 @@ public class Gift : MonoBehaviour
 
         FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
 
-        transform.SetParent(lastParent);
+        /*transform.SetParent(lastParent);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         GetComponent<Animator>().SetTrigger("idle");
 
-        isReady = false;
+        isReady = false;*/
 
-        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private IEnumerator RemoveGift()
