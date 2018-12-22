@@ -32,8 +32,17 @@ def get_treasure(request, pk):
 
 @apimethod
 def get_treasures_on_model(request, model_image_name):
-    treasure = Treasures.objects.filter(model_image_name=model_image_name)
-    return to_json(treasure)
+    treasures = list(Treasures.objects.filter(model_image_name=model_image_name))
+    results = []
+    for treasure in treasures:
+        result = {
+            'id': treasure.pk,
+            'author': treasure.author,
+            'msg': treasure.message,
+            'modelName': treasure.model_image_name
+        }
+        results.append(result)
+    return {'treasures': results}
 
 
 @csrf_exempt
