@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -43,6 +43,18 @@ def get_treasures_on_model(request, model_image_name):
         }
         results.append(result)
     return {'treasures': results}
+
+
+@apimethod
+def remove_treasure(request, id):
+    try:
+        treasure = Treasures.objects.get(pk=id)
+    except Treasures.DoesNotExist:
+        return HttpResponseBadRequest()
+
+    print("Deleting treasure id = {}".format(treasure.pk))
+    treasure.delete()
+    return HttpResponse(status=200)
 
 
 @csrf_exempt

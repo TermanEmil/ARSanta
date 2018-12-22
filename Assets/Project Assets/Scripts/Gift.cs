@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Networking;
 
 public class Gift : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Gift : MonoBehaviour
 
     private bool isReady = false;
     private Transform lastParent;
+    private int giftId;
 
     private void Start()
     {
@@ -17,6 +19,7 @@ public class Gift : MonoBehaviour
 
     public void Unpack (Treasure newTreasure) {
         text.text = newTreasure.msg;
+        giftId = newTreasure.id;
     }
 
     private void Update()
@@ -30,6 +33,8 @@ public class Gift : MonoBehaviour
         {
             GetComponent<Animator>().SetTrigger("open");
             StartCoroutine(FinishPreview());
+        }
+            StartCoroutine("RemoveGift");
         }
     }
 
@@ -67,5 +72,24 @@ public class Gift : MonoBehaviour
         isReady = false;
 
         //gameObject.SetActive(false);
+    }
+
+    private IEnumerator RemoveGift()
+    {
+        var url = GiftManager.baseUrl + "remove_treasure/" + giftId;
+        using (var www = UnityWebRequest.Get(url))
+        {
+            www.SetRequestHeader("Accept", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError || www.responseCode != 200)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Removed gift");
+            }
+        }
     }
 }

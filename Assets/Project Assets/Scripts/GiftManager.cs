@@ -32,7 +32,7 @@ public class TreasureAddModel
 
 public class GiftManager : MonoBehaviour
 {
-    private static string baseUrl = "http://172.31.199.77:8000/santa/";
+    public static string baseUrl = "http://172.31.199.77:8000/santa/";
 
     public GameObject giftPrefab1;
     public float updateRate = 2;
