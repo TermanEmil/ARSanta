@@ -27,13 +27,24 @@ public class GiftManager : MonoBehaviour
 
     public GameObject giftPrefab1;
     public TextMeshPro text;
+    public float updateRate = 2;
 
     public Transform pos1;
     public Transform[] listOfPoints;
+    private List<Gift> gifts = new List<Gift>();
 
-    private void Awake()
+    private void Start()
     {
-        StopCoroutine("LoadTreasureForModel");
+        foreach (var pos in listOfPoints)
+        {
+            var gift = Instantiate(giftPrefab1, pos) as GameObject;
+            gift.transform.localPosition = Vector3.zero;
+            gift.transform.localRotation = Quaternion.identity;
+
+            gifts.Add(gift.GetComponent<Gift>());
+            gift.SetActive(false);
+        }
+
         StartCoroutine("LoadTreasureForModel", gameObject.name);
     }
 
@@ -57,19 +68,23 @@ public class GiftManager : MonoBehaviour
                 var i = 0;
                 foreach (var treasure in treasures)
                 {
-                    if (i >= listOfPoints.Length)
+                    if (i >= gifts.Count)
                         break;
 
-                    var gift = Instantiate(giftPrefab1, listOfPoints[i]) as GameObject;
-                    gift.transform.localPosition = Vector3.zero;
-                    gift.transform.localRotation = Quaternion.identity;
-
-                    var giftComponent = gift.GetComponent<Gift>();
-                    giftComponent.Unpack(treasure);
-
+                    var gift = gifts[i];
+                    gift.Unpack(treasure);
+                    gift.gameObject.SetActive(true);
                     i++;
+                }
+
+                for (; i < gifts.Count; i++)
+                {
+                    gifts[i].gameObject.SetActive(false);
                 }
             }
         }
+
+        yield return new WaitForSeconds(2);
+        StartCoroutine("LoadTreasureForModel", gameObject.name);
     }
 }
