@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -21,6 +23,13 @@ public class TreasuresResponse
     public List<Treasure> treasures;
 }
 
+public class TreasureAddModel
+{
+    public string author;
+    public string msg;
+    public string model_image_name;
+}
+
 public class GiftManager : MonoBehaviour
 {
     private static string baseUrl = "http://172.31.199.77:8000/santa/";
@@ -29,6 +38,7 @@ public class GiftManager : MonoBehaviour
     public float updateRate = 2;
     public GameObject convas;
     public GameObject convasSucceed;
+    public Text succeedText;
     public InputField text;
 
     public Transform pos1;
@@ -105,7 +115,44 @@ public class GiftManager : MonoBehaviour
 
     public void AddGift ()
     {
+        StartCoroutine("AddGiftRequest");
         // add gift on server
+
+        //convasSucceed.SetActive(true);
+        //convasSucceed.gameObject.GetComponent<Animator>().SetTrigger("fade");
+        //convas.SetActive(false);
+    }
+
+    private IEnumerator AddGiftRequest()
+    {
+        var model = new TreasureAddModel
+        {
+            author = "Unknown",
+            msg = text.text,
+            model_image_name = gameObject.name
+        };
+        var modelJson = JsonUtility.ToJson(model);
+        var bytes = Encoding.ASCII.GetBytes(modelJson);
+        var uploadHandler = new UploadHandlerRaw(bytes);
+        uploadHandler.contentType = "application/json";
+
+        var url = baseUrl + "add_treasure";
+
+        var www = UnityWebRequest.Post(url, modelJson);
+        www.uploadHandler = uploadHandler;
+
+        www.SetRequestHeader("Accept", "application/json");
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+            succeedText.text = "Failed to add";
+        }
+        else
+        {
+            succeedText.text = "Success";
+        }
 
         convasSucceed.SetActive(true);
         convasSucceed.gameObject.GetComponent<Animator>().SetTrigger("fade");
