@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -31,8 +32,8 @@ public class GiftManager : MonoBehaviour
     public Transform[] listOfPoints;
 
     public void CreateGift () {
-        GameObject newGift = Instantiate (giftPrefab1, transform);
-        newGift.transform.position = pos1.position;
+        //GameObject newGift = Instantiate (giftPrefab1, transform);
+        //newGift.transform.position = pos1.position;
         // newGift.SetParent (transform);
 
         StartCoroutine("LoadTreasureForModel", "P_1");
@@ -55,10 +56,19 @@ public class GiftManager : MonoBehaviour
                 var treasuresResponse = JsonUtility.FromJson<TreasuresResponse>(www.downloadHandler.text);
                 var treasures = treasuresResponse.treasures;
 
-                //print (treasures.Count);
                 var i = 0;
-                foreach (var treasure in treasures) {
-                    // if (listOfPoints.Length)
+                foreach (var treasure in treasures)
+                {
+                    if (i >= listOfPoints.Length)
+                        break;
+
+                    var gift = Instantiate(giftPrefab1, listOfPoints[i]) as GameObject;
+                    gift.transform.localPosition = Vector3.zero;
+                    gift.transform.localRotation = Quaternion.identity;
+
+                    var giftComponent = gift.GetComponent<Gift>();
+                    giftComponent.Unpack(treasure);
+
                     i++;
                 }
             }

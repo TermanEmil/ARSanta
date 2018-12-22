@@ -217,6 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3823548464508978664}
   - component: {fileID: 1541138441}
+  - component: {fileID: 1944523430258829776}
   m_Layer: 0
   m_Name: Gift 1
   m_TagString: Untagged
@@ -259,6 +260,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1944523430258829776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413642379341899180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0013b36c141ab8f4688e254dda43b262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 2139479265}
 --- !u!1001 &7860627526326480079
 PrefabInstance:
   m_ObjectHideFlags: 0
