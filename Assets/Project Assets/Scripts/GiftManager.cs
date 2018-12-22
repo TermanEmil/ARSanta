@@ -9,6 +9,8 @@ public class GiftManager : MonoBehaviour
     public Transform pos1;
 
     public void CreateGift () {
-        Instantiate (giftPrefab1, pos1.position, Quaternion.identity);
+        GameObject newGift = Instantiate (giftPrefab1, transform);
+        newGift.transform.position = pos1.position;
+        // newGift.SetParent (transform);
     }
 }
