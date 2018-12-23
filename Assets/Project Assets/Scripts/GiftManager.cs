@@ -111,6 +111,7 @@ public class GiftManager : MonoBehaviour
 
     public void OpenAddGift ()
     {
+        GamePreferences.instance.currentGiftManager = this;
         convas.SetActive(true);
         convasSucceed.SetActive(false); // temporary
     }
@@ -122,7 +123,7 @@ public class GiftManager : MonoBehaviour
         convas.SetActive(false);
     }
 
-    public void AddGift ()
+    public void AddGift()
     {
         StartCoroutine("AddGiftRequest");
         // add gift on server
@@ -134,6 +135,8 @@ public class GiftManager : MonoBehaviour
 
     private IEnumerator AddGiftRequest()
     {
+        print(gameObject.name + "!!!");
+
         var model = new TreasureAddModel
         {
             author = "Unknown",

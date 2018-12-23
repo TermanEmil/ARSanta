@@ -7,6 +7,8 @@ public class GamePreferences : MonoBehaviour
 {
     public static GamePreferences instance;
 
+    public GiftManager currentGiftManager = null;
+
     public int oranges;
     public int reindeers;
     public int bombs;
@@ -82,5 +84,11 @@ public class GamePreferences : MonoBehaviour
         orangesInGift = 0;
         reindeersInGift = 0;
         bombsInGift = 0;
+    }
+
+    public void CreateGift()
+    {
+        if (currentGiftManager != null)
+            currentGiftManager.AddGift();
     }
 }
