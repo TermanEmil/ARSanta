@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class CameraPlaneDetect : MonoBehaviour
 {
-    private void Update()
+    public GameObject partcl;
+
+    private void OnTriggerEnter(Collider other)
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //if (other.tag == "Platform")
+            partcl.SetActive(true);
 
-        if (Physics.Raycast(ray, out hit))
-        {
-            Transform objectHit = hit.transform;
-        }
+        print("Active");
+    }
 
-    // Do something with the object that was hit by the raycast.
+    private void OnTriggerExit(Collider other)
+    {
+        // (other.tag == "Platform")
+            partcl.SetActive(false);
+
+        print("Inactive");
+    }
 }
