@@ -1926,6 +1926,7 @@ MonoBehaviour:
   updateRate: 2
   convas: {fileID: 1479203411}
   convasSucceed: {fileID: 385860191}
+  succeedText: {fileID: 1618367410}
   text: {fileID: 878327395}
   pos1: {fileID: 1711536799}
   listOfPoints:
