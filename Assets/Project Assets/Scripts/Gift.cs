@@ -12,6 +12,7 @@ public class Gift : MonoBehaviour
     private bool isReady = false;
     private Transform lastParent;
     private int giftId;
+    private int clickCount = 0;
 
     private void Start()
     {
@@ -26,6 +27,13 @@ public class Gift : MonoBehaviour
     private void Update()
     {
         text.transform.LookAt(Camera.main.transform.position);
+
+        if (clickCount >= 3)
+        {
+            FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
+
+            Destroy(gameObject);
+        }
     }
 
     public void Open()
@@ -34,14 +42,16 @@ public class Gift : MonoBehaviour
         {
             GetComponent<Animator>().SetTrigger("open");
             StartCoroutine("RemoveGift");
-            StartCoroutine(FinishPreview());
         }
+    }
+
+    public void ClickInc ()
+    {
+        clickCount++;
     }
 
     public void Preview ()
     {
-        // delete from server
-
         Transform prevPos = GameObject.Find("gif_recieve_pos").transform;
 
         foreach (var component in Camera.main.GetComponents<Component>())
@@ -57,22 +67,6 @@ public class Gift : MonoBehaviour
         isReady = true;
 
         FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = false;
-    }
-
-    IEnumerator FinishPreview ()
-    {
-        yield return new WaitForSeconds(4);
-
-        FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
-
-        /*transform.SetParent(lastParent);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        GetComponent<Animator>().SetTrigger("idle");
-
-        isReady = false;*/
-
-        Destroy(gameObject);
     }
 
     private IEnumerator RemoveGift()
