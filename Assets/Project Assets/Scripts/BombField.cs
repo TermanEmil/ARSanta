@@ -65,7 +65,14 @@ public class BombField : MonoBehaviour
         GamePreferences.instance.reindeers += treasure.reindeers;
         GamePreferences.instance.SaveData();
 
+        var addTreasure = new Treasure
+        {
+            oranges = treasure.oranges,
+            reindeers = treasure.reindeers,
+            bombs = 1 + 2 * treasure.bombs
+        };
         End();
+        AddManager.isntance.InitWatchAdd(addTreasure);
     }
 
     private void Loose()
@@ -92,7 +99,7 @@ public class BombField : MonoBehaviour
     private void End()
     {
         treasure = null;
-        FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
+        //FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
         Destroy(gift.gameObject);
     }
 }

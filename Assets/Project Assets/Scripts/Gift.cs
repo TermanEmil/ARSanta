@@ -54,8 +54,16 @@ public class Gift : MonoBehaviour
                 GamePreferences.instance.reindeers += treasure.reindeers;
                 GamePreferences.instance.SaveData();
 
-                FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
+                //FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
                 Destroy(gameObject);
+
+                var addTreasure = new Treasure
+                {
+                    oranges = treasure.oranges,
+                    reindeers = treasure.reindeers,
+                    bombs = 1 + 2 * treasure.bombs
+                };
+                AddManager.isntance.InitWatchAdd(addTreasure);
             }
         }
     }
