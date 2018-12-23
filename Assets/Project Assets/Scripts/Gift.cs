@@ -8,11 +8,17 @@ public class Gift : MonoBehaviour
 {
     public TextMeshPro text;
     public GiftManager giftManager;
+    public Transform or;
+    public Transform deer;
+    public int dangerMometr = 5;
 
     private bool isReady = false;
     private Transform lastParent;
     private int giftId;
     private int clickCount = 0;
+
+    private bool hasTerroristMode = false;
+    private Treasure treasure;
 
     private void Start()
     {
@@ -20,19 +26,37 @@ public class Gift : MonoBehaviour
     }
 
     public void Unpack (Treasure newTreasure) {
+        treasure = newTreasure;
         text.text = newTreasure.msg;
         giftId = newTreasure.id;
+
+        or.gameObject.SetActive(newTreasure.oranges > 0);
+        deer.gameObject.SetActive(newTreasure.reindeers > 0);
+
+        if (newTreasure.bombs > 0)
+            hasTerroristMode = true;
     }
 
     private void Update()
     {
         text.transform.LookAt(Camera.main.transform.position);
-
-        if (clickCount >= 3)
+        
+        if (clickCount == 3)
         {
-            FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
+            if (treasure.bombs > 0)
+            {
+                BombField.instance.Init(this, treasure);
+                clickCount++;
+            }
+            else
+            {
+                GamePreferences.instance.oranges += treasure.oranges;
+                GamePreferences.instance.reindeers += treasure.reindeers;
+                GamePreferences.instance.SaveData();
 
-            Destroy(gameObject);
+                FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
+                Destroy(gameObject);
+            }
         }
     }
 

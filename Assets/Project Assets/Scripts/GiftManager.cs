@@ -14,6 +14,9 @@ public class Treasure
     public string author;
     public string msg;
     public string modelName;
+    public int oranges = 0;
+    public int reindeers = 0;
+    public int bombs = 0;
 }
 
 // These weird class is needed.
@@ -28,6 +31,9 @@ public class TreasureAddModel
     public string author;
     public string msg;
     public string model_image_name;
+    public int oranges = 0;
+    public int reindeers = 0;
+    public int bombs = 0;
 }
 
 public class GiftManager : MonoBehaviour
@@ -132,8 +138,12 @@ public class GiftManager : MonoBehaviour
         {
             author = "Unknown",
             msg = text.text,
-            model_image_name = gameObject.name
+            model_image_name = gameObject.name,
+            oranges = GamePreferences.instance.orangesInGift,
+            reindeers = GamePreferences.instance.reindeersInGift,
+            bombs = GamePreferences.instance.bombsInGift
         };
+
         var modelJson = JsonUtility.ToJson(model);
         var bytes = Encoding.ASCII.GetBytes(modelJson);
         var uploadHandler = new UploadHandlerRaw(bytes);
