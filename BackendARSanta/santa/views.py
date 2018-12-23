@@ -39,7 +39,10 @@ def get_treasures_on_model(request, model_image_name):
             'id': treasure.pk,
             'author': treasure.author,
             'msg': treasure.message,
-            'modelName': treasure.model_image_name
+            'modelName': treasure.model_image_name,
+            'oranges': treasure.oranges,
+            'reindeers': treasure.reindeers,
+            'bombs': treasure.bombs
         }
         results.append(result)
     return {'treasures': results}
@@ -59,12 +62,16 @@ def remove_treasure(request, id):
 
 @csrf_exempt
 @apimethod
-def add_treasure(request, author, msg, model_image_name):
+def add_treasure(request, author, msg, model_image_name, oranges=0, reindeers=0, bombs=0):
     treasure = Treasures(
         author=author,
         message=msg,
         creation_date=datetime.now(),
-        model_image_name=model_image_name)
+        model_image_name=model_image_name,
+        oranges=oranges,
+        reindeers=reindeers,
+        bombs=bombs
+    )
 
     treasure.save()
     return to_json([treasure])
