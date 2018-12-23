@@ -92,7 +92,7 @@ public class BombField : MonoBehaviour
 
         bombObj.transform.localScale = Vector3.zero;
 
-        Invoke("End", 2);
+        Invoke("DestroyedEnd", 2);
         treasure = null;
     }
 
@@ -100,6 +100,13 @@ public class BombField : MonoBehaviour
     {
         treasure = null;
         //FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
+        Destroy(gift.gameObject);
+    }
+
+    private void DestroyedEnd()
+    {
+        treasure = null;
+        FindObjectOfType<Vuforia.VuforiaBehaviour>().enabled = true;
         Destroy(gift.gameObject);
     }
 }
