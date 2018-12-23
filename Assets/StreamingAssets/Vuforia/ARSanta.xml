@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="photo_2018-12-23_07-46-30" size="1.000000 1.039495" />
+    <ImageTarget name="photo_2018-12-23_07-46-29" size="1.000000 1.073345" />
+    <ImageTarget name="photo_2018-12-23_07-46-28" size="1.000000 1.082212" />
+    <ImageTarget name="target_1" size="1.000000 1.279910" />
     <ImageTarget name="photo_2018-12-23_01-42-45" size="1.000000 1.077886" />
     <ImageTarget name="target_3" size="1.000000 1.283784" />
     <ImageTarget name="target_2" size="1.000000 0.755859" />
-    <ImageTarget name="target_1" size="1.000000 0.562500" />
   </Tracking>
 </QCARConfig>
