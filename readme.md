@@ -3,6 +3,7 @@
 A treasure hunting application using Augmented Reality. This is a Hackathon project implemented in 24h.
 
 Youtube video:
+
 [![youtube video](https://img.youtube.com/vi/iBIhm-0luh0/0.jpg)](https://www.youtube.com/watch?v=iBIhm-0luh0)
 
 ## Tools
