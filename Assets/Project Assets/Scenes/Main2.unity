@@ -5639,6 +5639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b050c47c31c8b24ab3d10bea9260363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serverUrl: 192.168.0.7:8000
   currentGiftManager: {fileID: 0}
   oranges: 0
   reindeers: 0

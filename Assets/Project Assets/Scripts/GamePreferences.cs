@@ -7,6 +7,7 @@ public class GamePreferences : MonoBehaviour
 {
     public static GamePreferences instance;
 
+    public string serverUrl = "192.168.0.104:8000";
     public GiftManager currentGiftManager = null;
 
     public int oranges;

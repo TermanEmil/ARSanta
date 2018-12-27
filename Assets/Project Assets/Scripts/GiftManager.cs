@@ -38,7 +38,7 @@ public class TreasureAddModel
 
 public class GiftManager : MonoBehaviour
 {
-    public static string baseUrl = "http://172.31.199.77:8000/santa/";
+    public static string baseUrl;
 
     public GameObject giftPrefab1;
     public float updateRate = 2;
@@ -50,6 +50,11 @@ public class GiftManager : MonoBehaviour
     public Transform pos1;
     public Transform[] listOfPoints;
     private List<Gift> gifts = new List<Gift>();
+
+    private void Awake()
+    {
+        baseUrl = string.Format("http://{0}/santa/", GamePreferences.instance.serverUrl);
+    }
 
     private void Start()
     {
