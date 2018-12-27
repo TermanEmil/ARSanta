@@ -5,8 +5,7 @@ A treasure hunting application using Augmented Reality. This is a Hackathon proj
 [![youtube video](https://img.youtube.com/vi/iBIhm-0luh0/0.jpg)](https://www.youtube.com/watch?v=iBIhm-0luh0)
 
 ## Tools
-  * <img src="./imgs/vuforia.jpg" width="48">
-  Augmented Reality API
+  * <img src="./imgs/vuforia.jpg" width="48"> Augmented Reality API
   <br/>
 
   * <img src="./imgs/unity_logo.jpg" width="48"> Game Engine
